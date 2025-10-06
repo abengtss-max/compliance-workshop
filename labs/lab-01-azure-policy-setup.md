@@ -1,6 +1,6 @@
-# Lab Exercise 1A: Azure Policy & Initiative Setup
+# Lab Exercise 1: Azure Policy & Initiative Setup
 
-## 📋 Overview
+## 📋 Lab 1 Overview
 
 This hands-on lab teaches the fundamentals of implementing CIS (Center for Internet Security) benchmark compliance using Azure Policy and initiatives. You'll learn to create custom policies, build CIS-aligned initiatives, and understand policy enforcement through practical exercises.
 

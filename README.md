@@ -41,7 +41,7 @@ This workshop is tailored for three key organizational roles:
 
 ## 🧪 Lab Exercises
 
-### 📋 [Lab Exercise 1: Azure Policy & Initiative Setup](./labs/lab-01a-azure-policy-setup.md)
+### 📋 [Lab Exercise 1: Azure Policy & Initiative Setup](./labs/lab-01-azure-policy-setup.md)
 **Workshop Time:** Morning Session (10:00-11:00)  
 **Target Persona:** 🏛️ Compliance Officer + 🔒 Security Officer + ⚙️ Cloud Engineer  
 **Duration:** 60 minutes  
@@ -59,7 +59,7 @@ Learn to create custom Azure Policy definitions aligned with CIS benchmarks, bui
 
 ---
 
-### 🎯 [Lab Exercise 2: CIS Compliance Scenario](./labs/lab-01b-cis-compliance-scenario.md)
+### 🎯 [Lab Exercise 2: CIS Compliance Scenario](./labs/lab-02-cis-compliance-scenario.md)
 **Workshop Time:** Afternoon Session (14:00-15:00)  
 **Target Persona:** 🏛️ Compliance Officer + 🔒 Security Officer + ⚙️ Cloud Engineer  
 **Duration:** 60 minutes  
@@ -101,10 +101,9 @@ Deploy an intelligent compliance assistant using Azure AI Foundry with GPT-4o, c
 compliance-workshop/
 ├── README.md                              # This landing page
 ├── labs/                                 # Lab exercise instructions
-│   ├── lab-01-azure-policy.md           # Lab overview and links to parts
-│   ├── lab-01a-azure-policy-setup.md    # Morning: Policy & Initiative Setup
-│   ├── lab-01b-cis-compliance-scenario.md # Afternoon: CIS Compliance Scenario
-│   └── lab-03-ai-compliance-assistant.md # AI Foundry with GPT-4o and RAG
+│   ├── lab-01-azure-policy-setup.md     # Lab 1: Policy & Initiative Setup
+│   ├── lab-02-cis-compliance-scenario.md # Lab 2: CIS Compliance Scenario
+│   └── lab-03-ai-compliance-assistant.md # Lab 3: AI Foundry with GPT-4o and RAG
 ├── workbooks/                           # Azure Workbook templates (future)
 │   └── workbook-compliance-personas.json
 └── assets/                             # Supporting files and compliance data

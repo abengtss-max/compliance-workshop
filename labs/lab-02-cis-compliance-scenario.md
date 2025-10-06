@@ -1,6 +1,6 @@
-# Lab Exercise 1B: CIS Compliance Scenario
+# Lab Exercise 2: CIS Compliance Scenario
 
-## 📋 Overview
+## 📋 Lab 2 Overview
 
 This practical exercise simulates a real-world compliance scenario where you inherit an Azure subscription with existing resources and must assess, remediate, and report on CIS benchmark violations using only native Azure tools.
 
@@ -21,7 +21,7 @@ By completing this lab, you will:
 
 ## 📋 Prerequisites
 
-- [ ] **Completed Lab Exercise 1A** (Azure Policy & Initiative Setup)
+- [ ] **Completed Lab Exercise 1** (Azure Policy & Initiative Setup)
 - [ ] Azure subscription with resources and active policy assignments
 - [ ] Group work assignment completed (see roles below)
 
@@ -60,14 +60,14 @@ Your organization has just acquired a subsidiary with an existing Azure subscrip
 
 ## Step 1: Assess Current Compliance
 
-### 1A: Initial Compliance Assessment
+### 2A: Initial Compliance Assessment
 
 1. **Policy Admin:** Navigate to Azure Portal > **Policy** > **Compliance**
-2. Filter by your CIS initiative assignment from Lab 1A
+2. Filter by your CIS initiative assignment from Lab 1
 3. Document the overall compliance percentage
 4. **Auditor:** Take a screenshot of the main compliance dashboard
 
-### 1B: Identify Non-Compliant Resources
+### 2B: Identify Non-Compliant Resources
 
 1. Click on your "CIS Baseline Compliance Assessment" initiative
 2. For each failing policy, document:
