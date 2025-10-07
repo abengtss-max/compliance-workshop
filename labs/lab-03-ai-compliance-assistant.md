@@ -43,14 +43,14 @@ By completing this lab, you will:
 
 - [ ] Azure subscription with **AI services access** and sufficient quota for GPT-4o
 - [ ] **Owner or Contributor** permissions in the target subscription
-- [ ] Access to the **Contoso Azure Compliance and Security Report.pdf** file in repository assets
+- [ ] Download the **Contoso Azure Compliance and Security Report.pdf** file (link provided below)
 - [ ] Basic understanding of AI/ML concepts (helpful but not required)
 - [ ] Completed Labs 1 and 2 for context (recommended)
 
 ## 🗂️ Required Files
 
-Ensure you have access to this file in your repository:
-- `assets/Contoso Azure Compliance and Security Report.pdf`
+Download this file to your desktop before starting the lab:
+- **[Contoso Azure Compliance and Security Report.pdf](https://github.com/abengtss-max/compliance-workshop/raw/main/assets/Contoso%20Azure%20Compliance%20and%20Security%20Report.pdf)** - Sample compliance assessment report for RAG functionality
 
 ---
 
@@ -164,19 +164,22 @@ You have access to compliance assessment data through uploaded documents. Use th
 
 ## Step 4: Upload and Index Compliance Document
 
-### 4A: Access Data Sources
+### 4A: Add Knowledge to Agent
 
-1. **Navigate to Data Sources**
-   - In AI Foundry Studio, click **Data** in the left sidebar
-   - Click **+ Add data source**
-   - Select **Upload files**
+1. **Access Knowledge Section**
+   - While in the **Agent Playground**, look at the right-side panel
+   - Find the **Knowledge (0)** section
+   - Click the **Add** button next to Knowledge
 
-2. **Upload Contoso Report**
-   - Click **Browse files**
-   - Navigate to your repository's `assets` folder
+2. **Select File Upload Method**
+   - In the "Add knowledge" dialog, click on **Files**
+   - This allows you to "Upload local files"
+
+3. **Upload Contoso Report**
+   - Click **Select local files**
+   - Navigate to your desktop where you downloaded the PDF
    - Select **Contoso Azure Compliance and Security Report.pdf**
-   - Click **Upload**
-   - **Data source name:** `Contoso-Compliance-Assessment`
+   - Click **Upload and save**
 
 ### 4B: Configure Document Indexing
 
