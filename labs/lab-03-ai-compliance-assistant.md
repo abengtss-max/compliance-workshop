@@ -107,10 +107,7 @@ Ensure you have access to this file in your repository:
    - **Version:** Latest available (shown in dropdown)
    - **Deployment type:** Standard
 
-2. **Configure Model Settings**
-   - **Tokens per minute rate limit:** 30,000 (or maximum available)
-   - **Content filter:** Standard (default)
-   - **Enable system message:** Yes
+2. **Deploy the Model**
    - Click **Deploy**
 
 3. **Verify Deployment**
