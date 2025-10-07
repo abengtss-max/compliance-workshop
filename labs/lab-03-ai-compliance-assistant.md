@@ -112,7 +112,7 @@ Ensure you have access to this file in your repository:
 
 3. **Verify Deployment**
    - Wait for deployment status to show **Succeeded**
-   - Note the **deployment endpoint** for later use
+   - Click **Open in playground**
    - Test the model with a simple query: "Hello, can you help with compliance?"
 
 ---
