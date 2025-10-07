@@ -148,10 +148,6 @@ When responding:
 You have access to compliance assessment data through uploaded documents. Use this data to provide contextual, data-driven responses tailored to the user's specific environment and role.
 ```
 
-3. **Save Agent Configuration**
-   - Click **Save** to create the agent
-   - Verify the agent appears in your agents list
-
 ### 3B: Test Basic Agent Functionality
 
 1. **Open Agent Chat**
