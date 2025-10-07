@@ -234,10 +234,6 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
 - **Initiative assignments** can be scoped to specific environments or applications
 - **Parameter flexibility** allows policies to be reused across different contexts
 
-## 🔗 Next Steps
-
-**Proceed immediately to [Lab Exercise 2: CIS Compliance Scenario](./lab-02-cis-compliance-scenario.md)** where you'll use the policies and compliance data from this exercise to simulate a real-world compliance assessment and remediation scenario.
-
 ## 🆘 Troubleshooting Tips
 
 **Policy not evaluating:**
