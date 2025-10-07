@@ -181,39 +181,14 @@ You have access to compliance assessment data through uploaded documents. Use th
    - Select **Contoso Azure Compliance and Security Report.pdf**
    - Click **Upload and save**
 
-### 4B: Configure Document Indexing
+### 4B: Test Knowledge Integration
 
-1. **Index Settings**
-   - **Chunk size:** 1000 tokens (default)
-   - **Overlap:** 200 tokens (default)
-   - **Search type:** Hybrid (vector + keyword)
-   - **Enable semantic ranking:** Yes
+1. **Verify Upload Success**
+   - The Knowledge section should now show **(1)** indicating the file is loaded
+   - You should see the PDF filename listed in the Knowledge area
 
-2. **Start Indexing Process**
-   - Click **Create and index**
-   - **Processing time:** 3-5 minutes depending on document size
-   - Monitor progress in the **Data sources** section
-
-3. **Verify Indexing Completion**
-   - Status should show **Indexing completed**
-   - **Chunks created:** Should show 50+ chunks (varies by document size)
-   - **Index name:** Note this for agent configuration
-
-### 4C: Connect Data Source to Agent
-
-1. **Update Agent Configuration**
-   - Return to your **ComplianceAdvisor** agent
-   - Click **Settings** or **Edit**
-   - In **Data sources**, click **+ Add data source**
-
-2. **Link Indexed Document**
-   - Select your **Contoso-Compliance-Assessment** data source
-   - **Search relevance:** 0.7 (default)
-   - **Max search results:** 10
-   - Click **Save**
-
-3. **Test RAG Functionality**
-   - In the agent playground, ask: "What are the top compliance findings in the Contoso assessment?"
+2. **Test RAG Functionality**
+   - In the chat area, ask: "What are the top compliance findings in the Contoso assessment?"
    - The response should reference specific data from the uploaded document
    - Verify the agent cites document sections in its responses
 
@@ -444,36 +419,7 @@ Using the AI assistant and persona-specific prompts, you should now be able to p
 - **Technical documentation** improves with AI assistance in explaining complex configurations
 - **Validation procedures** become more comprehensive with AI-suggested testing approaches
 
-## 🔗 Next Steps
-
-### **Immediate Actions:**
-1. **Save your agent configuration** for future use in compliance assessments
-2. **Export valuable AI responses** as templates for recurring analysis tasks
-3. **Document lessons learned** about effective AI prompting for compliance work
-4. **Share insights** with your organization's compliance and security teams
-
-### **Future Implementation:**
-1. **Expand data sources** to include your organization's actual compliance reports
-2. **Integrate with existing tools** through Azure AI Foundry APIs
-3. **Develop custom agents** for specific compliance frameworks or industries
-4. **Create automated workflows** that combine AI insights with approval processes
-
 ## 🆘 Troubleshooting Tips
-
-**AI Foundry deployment issues:**
-- Ensure you have sufficient quota for GPT-4o in Sweden Central region
-- Check that all required Azure services are available in your subscription
-- Verify you have Owner or Contributor permissions on the subscription
-
-**Document indexing problems:**
-- Ensure PDF file is not password-protected or corrupted
-- Check file size limits (typically 100MB maximum)
-- Try re-uploading if indexing appears stuck
-
-**Agent not referencing uploaded data:**
-- Verify data source is properly connected to agent configuration
-- Test with specific questions about document content
-- Check that indexing completed successfully with chunks created
 
 **Generic or unhelpful AI responses:**
 - Refine system message to be more specific about your needs

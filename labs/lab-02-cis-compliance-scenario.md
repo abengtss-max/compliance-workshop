@@ -16,34 +16,14 @@ By completing this lab, you will:
 - Prioritize remediation efforts based on risk and business impact
 - Execute both automated and manual remediation tasks
 - Collect comprehensive audit evidence for compliance reporting
-- Present findings and lessons learned to stakeholders
+- Document findings and create comprehensive audit evidence
 
 ## 📋 Prerequisites
 
 - [ ] **Completed Lab Exercise 1** (Azure Policy & Initiative Setup)
 - [ ] Azure subscription with resources and active policy assignments
-- [ ] Group work assignment completed (see roles below)
 
-## 👥 Group Roles
 
-**Assign these roles within your team:**
-
-### **👤 Policy Admin**
-- Manages policy assignments and compliance monitoring
-- Reviews compliance dashboards and policy effectiveness
-- Coordinates policy changes and remediation task creation
-
-### **🔧 Remediator** 
-- Executes remediation tasks and configuration changes
-- Implements manual fixes for non-compliant resources
-- Validates remediation success and resource functionality
-
-### **📋 Auditor**
-- Documents findings, collects evidence, and prepares reports
-- Takes screenshots and exports compliance data
-- Maintains remediation logs and audit trails
-
----
 
 ## Scenario Background
 
@@ -53,20 +33,19 @@ Your organization has just acquired a subsidiary with an existing Azure subscrip
 2. **Prioritize** remediation efforts based on risk and business impact  
 3. **Remediate** non-compliant resources using available tools
 4. **Document** all findings and actions for an upcoming audit
-5. **Present** your compliance posture to executive leadership
 
 ---
 
 ## Step 1: Assess Current Compliance
 
-### 2A: Initial Compliance Assessment
+### 1A: Initial Compliance Assessment
 
-1. **Policy Admin:** Navigate to Azure Portal > **Policy** > **Compliance**
+1. Navigate to Azure Portal > **Policy** > **Compliance**
 2. Filter by your CIS initiative assignment from Lab 1
 3. Document the overall compliance percentage
-4. **Auditor:** Take a screenshot of the main compliance dashboard
+4. Take a screenshot of the main compliance dashboard
 
-### 2B: Identify Non-Compliant Resources
+### 1B: Identify Non-Compliant Resources
 
 1. Click on your "CIS Baseline Compliance Assessment" initiative
 2. For each failing policy, document:
@@ -75,7 +54,7 @@ Your organization has just acquired a subsidiary with an existing Azure subscrip
    - **Resource types affected** (storage accounts, VMs, etc.)
    - **Specific violation details**
 
-3. **Auditor:** Export compliance data:
+3. Export compliance data:
    - Click **Download** > **CSV** 
    - Save file as `baseline-compliance-assessment.csv`
 
@@ -89,7 +68,7 @@ Review the most typical violations you'll encounter:
 - **Custom RBAC roles** in use without proper justification
 - **Network security groups** with overly permissive rules
 
-**Team Discussion (5 minutes):** Which violations pose the highest security risk to the organization?
+**Assessment:** Consider which violations pose the highest security risk to the organization.
 
 ---
 
@@ -97,7 +76,7 @@ Review the most typical violations you'll encounter:
 
 ### 2A: Risk-Based Priority Assessment
 
-**All Team Members:** Collaborate to rank violations using this framework:
+Rank violations using this framework:
 
 #### **🔴 High Priority**
 - Security configurations exposing data (storage encryption, network access)
@@ -116,7 +95,7 @@ Review the most typical violations you'll encounter:
 
 ### 2B: Create Remediation Plan
 
-**Auditor:** Document your team's prioritization decisions:
+Document your prioritization decisions:
 
 1. **Critical items** requiring immediate attention
 2. **High priority items** for this session
@@ -129,7 +108,7 @@ Review the most typical violations you'll encounter:
 
 ### 3A: Automated Remediation (Where Available)
 
-1. **Policy Admin:** Check for available remediation tasks
+1. Check for available remediation tasks
    - Go to **Policy** > **Remediation**
    - Look for policies that support automatic remediation
    - Click **Create remediation task** for applicable policies
@@ -139,7 +118,7 @@ Review the most typical violations you'll encounter:
    - Create remediation task to automatically enable secure transfer
    - Monitor task progress in the remediation dashboard
 
-3. **Auditor:** Document automated remediation:
+3. Document automated remediation:
    - Which policies support automation
    - Remediation task IDs and status
    - Expected completion timeframes
@@ -148,7 +127,7 @@ Review the most typical violations you'll encounter:
 
 #### **Fix Missing Environment Tags**
 
-**Remediator:** For each resource missing the Environment tag:
+For each resource missing the Environment tag:
 
 1. Navigate to the non-compliant resource in Azure Portal
 2. Click on the **Tags** section
@@ -156,29 +135,29 @@ Review the most typical violations you'll encounter:
    - **Key:** `Environment`
    - **Value:** Choose appropriate value (`Production`, `Development`, `Testing`)
 4. Click **Apply**
-5. **Auditor:** Log the resource name, type, and tag value applied
+5. Log the resource name, type, and tag value applied
 
 #### **Enable Storage Account Security**
 
-**Remediator:** For non-compliant storage accounts:
+For non-compliant storage accounts:
 
 1. Navigate to **Storage accounts**
 2. Select the non-compliant storage account
 3. Go to **Security + networking** > **Configuration**
 4. Set **Secure transfer required** to **Enabled**
 5. Click **Save**
-6. **Auditor:** Document storage account name and timestamp of change
+6. Document storage account name and timestamp of change
 
 #### **Address VM Disk Compliance**
 
-**Remediator:** For VMs not using managed disks:
+For VMs not using managed disks:
 
 1. Navigate to **Virtual machines**
 2. Select the non-compliant VM
 3. Go to **Disks** section
 4. **Note:** Converting to managed disks may require VM downtime
 5. **For this exercise:** Document the current configuration and create a remediation plan
-6. **Auditor:** Record VM details and planned remediation approach
+6. Record VM details and planned remediation approach
 
 ---
 
@@ -186,7 +165,7 @@ Review the most typical violations you'll encounter:
 
 ### 4A: Refresh Compliance Data
 
-1. **Policy Admin:** Wait 10-15 minutes for policy evaluation to update
+1. Wait 10-15 minutes for policy evaluation to update
 2. Navigate back to **Policy** > **Compliance**
 3. Click **Refresh** on your initiative assignment
 4. **Note:** Some evaluations may take up to 24 hours for full refresh
@@ -194,7 +173,7 @@ Review the most typical violations you'll encounter:
 ### 4B: Validate Improvements
 
 1. Compare new compliance percentage to baseline from Step 1
-2. **Auditor:** Take "after" screenshot of compliance dashboard
+2. Take "after" screenshot of compliance dashboard
 3. Document specific improvements:
    - Policies that moved from non-compliant to compliant
    - Number of resources remediated by policy type
@@ -215,7 +194,7 @@ For violations that cannot be immediately resolved:
 
 ### 5A: Compliance Evidence Package
 
-**Auditor:** Compile a comprehensive evidence folder:
+Compile a comprehensive evidence folder:
 
 #### **Screenshots Required:**
 - Before/after compliance dashboard views
@@ -231,7 +210,7 @@ For violations that cannot be immediately resolved:
 
 ### 5B: Remediation Documentation
 
-**Remediator:** Create detailed remediation log:
+Create detailed remediation log:
 
 ```
 Resource Name: [storage-account-name]
@@ -245,7 +224,7 @@ Validation: Verified via Azure Portal configuration page
 
 ### 5C: Policy Management Evidence
 
-**Policy Admin:** Document policy configuration:
+Document policy configuration:
 
 - Screenshot of initiative definition with included policies
 - Assignment scope and parameters configured
@@ -253,36 +232,6 @@ Validation: Verified via Azure Portal configuration page
 - Any exclusions or exemptions applied
 
 ---
-
-## Step 6: Present Findings
-
-### Team Presentation Preparation (10 minutes)
-
-Each team prepares a 5-minute presentation covering:
-
-#### **Slide 1: Executive Summary**
-- Overall compliance improvement (before/after percentages)
-- Number of resources remediated
-- Critical security issues resolved
-
-#### **Slide 2: Key Findings**
-- Most common violation types discovered
-- Resources posing highest security risk
-- Violations that were easily automated vs requiring manual effort
-
-#### **Slide 3: Remediation Results**
-- Successful remediations completed during session
-- Issues requiring additional time/resources
-- Recommendations for preventing future violations
-
-#### **Slide 4: Lessons Learned & Next Steps**
-- What worked well in your remediation approach
-- Challenges encountered and how you overcame them
-- Recommendations for ongoing compliance monitoring
-
-### Team Presentations (15 minutes total)
-
-**Each team presents for 5 minutes maximum**
 
 ---
 
@@ -294,7 +243,7 @@ Each team prepares a 5-minute presentation covering:
 - [ ] Verified compliance improvements through dashboard refresh
 - [ ] Collected comprehensive audit evidence package
 - [ ] Documented all remediation actions with timestamps
-- [ ] Presented findings and recommendations to group
+- [ ] Documented lessons learned and recommendations
 
 ## 🏆 Key Takeaways
 
