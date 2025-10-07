@@ -84,7 +84,7 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    }
    ```
 
-   > **Note:** Make sure you're in the Policy rule section, not the Properties section when pasting this JSON.
+   > **Important:** This should be pasted into the **Policy rule** section only. Do NOT include any "properties" wrapper.
 
 4. **Add Parameters Section**
    
@@ -108,6 +108,8 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    }
    ```
 
+   > **Troubleshooting:** If you can't see parameters in Step 4.3, ensure both the Policy rule and Parameters sections are correctly filled and saved.
+
 5. **Save the Policy**
    - Click **Save**
    - Your custom CIS-aligned policy is now created
@@ -123,16 +125,17 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    - **Definition location:** Select your subscription
    - **Name:** `CIS-Baseline-Initiative`
    - **Description:** `CIS Azure Foundations Benchmark baseline controls for compliance assessment`
-   - **Category:** Select **"Compliance"**
+   - **Category:** Select **"Regulatory Compliance"**
+   - Click **Next**
 
 3. **Add Policies to Initiative**
    - Click **Add policy definition(s)**
    - **Search for your custom policy:** Type "CIS-Enforce-Tag" and add your policy
-   - **Add built-in CIS policies:** Search for "CIS" and select these policies:
-     - **"Audit VMs that do not use managed disks"**
-     - **"Storage accounts should restrict network access"**
-     - **"Secure transfer to storage accounts should be enabled"**
-     - **"Audit usage of custom RBAC rules"**
+   - **Add built-in policies:** Search for these specific policy names:
+     - Search: **"managed disks"** → Select **"Audit VMs that do not use managed disks"**
+     - Search: **"storage accounts restrict"** → Select **"Storage accounts should restrict network access"**  
+     - Search: **"secure transfer"** → Select **"Secure transfer to storage accounts should be enabled"**
+     - Search: **"custom RBAC"** → Select **"Audit usage of custom RBAC rules"**
    - Click **Add** for each selected policy
    - Click **Save**
 
@@ -153,6 +156,7 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    - **Assignment name:** `CIS Baseline Compliance Assessment`
    - **Description:** `CIS Azure Foundations Benchmark compliance assessment and enforcement`
    - **Policy enforcement:** **Enabled**
+   - Click **Next**
 
 3. **Configure Parameters**
    - For your custom tag policy, set **Effect:** to **"audit"** (for initial assessment)
