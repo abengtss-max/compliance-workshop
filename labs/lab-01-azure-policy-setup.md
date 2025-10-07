@@ -204,7 +204,7 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
 3. **Analyze Compliance Data**
    - Take note of which resources are non-compliant
    - Document the specific policy violations
-   - This data will be used in Lab Exercise 1B (CIS Compliance Scenario)
+   - This data will be used in Lab Exercise 2 (CIS Compliance Scenario)
 
 ---
 
@@ -236,7 +236,7 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
 
 ## 🔗 Next Steps
 
-**Proceed immediately to [Lab Exercise 1B: CIS Compliance Scenario](./lab-01b-cis-compliance-scenario.md)** where you'll use the policies and compliance data from this exercise to simulate a real-world compliance assessment and remediation scenario.
+**Proceed immediately to [Lab Exercise 2: CIS Compliance Scenario](./lab-02-cis-compliance-scenario.md)** where you'll use the policies and compliance data from this exercise to simulate a real-world compliance assessment and remediation scenario.
 
 ## 🆘 Troubleshooting Tips
 
