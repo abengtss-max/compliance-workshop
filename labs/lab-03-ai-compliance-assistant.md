@@ -77,13 +77,8 @@ Ensure you have access to this file in your repository:
 
 2. **Your first project**
    - **Default project name:** `ComplianceWorkshopProject`
-   
-3. **Content Review Policy**  
-   - Review the Azure OpenAI content policy information
-   - Accept the terms for Azure OpenAI Service access
-   - Click checkboxes for content filtering and abuse monitoring if required
 
-4. **Deploy the Instance**
+3. **Deploy the Instance**
    - Click **Next** to review settings
    - Click **Create** 
    - **Wait time:** 5-10 minutes for deployment completion
