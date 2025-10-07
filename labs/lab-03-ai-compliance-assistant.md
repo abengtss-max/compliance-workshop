@@ -70,13 +70,13 @@ Ensure you have access to this file in your repository:
 ### 1B: Configure AI Foundry Instance
 
 1. **Basic Configuration**
-   - **Subscription:** Select your subscription 
-   - **Resource group:** Create new: `rg-compliance-ai-foundry` (or use existing)
-   - **Name:** `aif-compliance-workshop-ali` (replace 'ali' with your name/initials)
+   - **Subscription:** Select your subscription
+   - **Resource group:** Create new: `rg-compliance-ai-foundry`
+   - **Name:** `aif-compliance-workshop-[yourname]` (replace [yourname] with your initials)
    - **Region:** **Sweden Central**
 
 2. **Your first project**
-   - **Default project name:** `ComplianceProject` (or leave as `firstProject`)
+   - **Default project name:** `ComplianceWorkshopProject`
    
 3. **Content Review Policy**  
    - Review the Azure OpenAI content policy information
