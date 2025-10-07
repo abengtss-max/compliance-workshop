@@ -43,7 +43,10 @@ Create custom Azure Policy definitions aligned with CIS benchmarks and build com
 ### 🎯 [Lab Exercise 2: CIS Compliance Scenario](./labs/lab-02-cis-compliance-scenario.md)  
 Simulate inheriting an Azure subscription with compliance violations and execute assessment, remediation, and reporting using team-based roles.
 
-### 🤖 [Lab Exercise 3: AI-Driven Compliance Assistant](./labs/lab-03-ai-compliance-assistant.md)
+### 📊 [Lab Exercise 3: Resource Graph & Compliance Dashboards](./labs/lab-03-resource-graph-dashboards.md)
+Master Azure Resource Graph KQL queries for compliance analysis and build interactive persona-specific compliance dashboards with comprehensive visualization.
+
+### 🤖 [Lab Exercise 4: AI-Driven Compliance Assistant](./labs/lab-04-ai-compliance-assistant.md)
 Deploy an intelligent compliance assistant using Azure AI Foundry with GPT-4o and RAG functionality for persona-based compliance analysis.
 
 ---
@@ -56,7 +59,8 @@ compliance-workshop/
 ├── labs/                                 # Lab exercise instructions
 │   ├── lab-01-azure-policy-setup.md     # Lab 1: Policy & Initiative Setup
 │   ├── lab-02-cis-compliance-scenario.md # Lab 2: CIS Compliance Scenario
-│   └── lab-03-ai-compliance-assistant.md # Lab 3: AI Foundry with GPT-4o and RAG
+│   ├── lab-03-resource-graph-dashboards.md # Lab 3: KQL Queries & Dashboards
+│   └── lab-04-ai-compliance-assistant.md # Lab 4: AI Foundry with GPT-4o and RAG
 ├── workbooks/                           # Azure Workbook templates (future)
 │   └── workbook-compliance-personas.json
 └── assets/                             # Supporting files and compliance data
@@ -80,7 +84,8 @@ compliance-workshop/
 **Lab Dependencies:**
 - Lab 1: No prerequisites  
 - Lab 2: Complete Lab 1 first
-- Lab 3: Azure subscription with AI services access
+- Lab 3: Complete Labs 1 and 2 first
+- Lab 4: Azure subscription with AI services access
 
 ## 💡 Workshop Tips
 

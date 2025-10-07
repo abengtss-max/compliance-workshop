@@ -1,0 +1,837 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "# 🛡️ Multi-Persona Compliance Dashboard\n\n**Real-time compliance visibility for Compliance Officers, Security Officers, and Cloud Engineers**\n\nThis dashboard provides role-specific views of your Azure environment's compliance posture, security status, and operational health. Use the parameters below to customize the view for your subscription and resource scope.\n\n---"
+      },
+      "name": "text - title"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "subscription-filter",
+            "version": "KqlParameterItem/1.0",
+            "name": "Subscriptions",
+            "type": 6,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "summarize by subscriptionId\r\n| project value = strcat('/subscriptions/', subscriptionId), label = subscriptionId, selected = true",
+            "crossComponentResources": [
+              "value::selected"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": [
+                "value::all"
+              ],
+              "includeAll": false,
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "defaultValue": "value::all",
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "resourcegroup-filter",
+            "version": "KqlParameterItem/1.0",
+            "name": "ResourceGroups",
+            "type": 2,
+            "isRequired": false,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "Resources\r\n| distinct resourceGroup\r\n| order by resourceGroup asc\r\n| project value = resourceGroup, label = resourceGroup",
+            "crossComponentResources": [
+              "{Subscriptions}"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": [
+                "value::all"
+              ],
+              "includeAll": true,
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "defaultValue": "value::all",
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "environment-tag",
+            "version": "KqlParameterItem/1.0",
+            "name": "EnvironmentTag",
+            "type": 2,
+            "isRequired": false,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "Resources\r\n| where isnotempty(tags[\"Environment\"])\r\n| distinct tostring(tags[\"Environment\"])\r\n| order by tags_Environment asc\r\n| project value = tags_Environment, label = tags_Environment",
+            "crossComponentResources": [
+              "{Subscriptions}"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": [
+                "value::all"
+              ],
+              "includeAll": true,
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "defaultValue": "value::all",
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          }
+        ],
+        "style": "pills",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources"
+      },
+      "name": "parameters - filters"
+    },
+    {
+      "type": 11,
+      "content": {
+        "version": "LinkItem/1.0",
+        "style": "tabs",
+        "links": [
+          {
+            "id": "compliance-officer-tab",
+            "cellValue": "selectedTab",
+            "linkTarget": "parameter",
+            "linkLabel": "🏛️ Compliance Officer",
+            "subTarget": "ComplianceOfficer",
+            "style": "link"
+          },
+          {
+            "id": "security-officer-tab",
+            "cellValue": "selectedTab",
+            "linkTarget": "parameter",
+            "linkLabel": "🔒 Security Officer",
+            "subTarget": "SecurityOfficer",
+            "style": "link"
+          },
+          {
+            "id": "cloud-engineer-tab",
+            "cellValue": "selectedTab",
+            "linkTarget": "parameter",
+            "linkLabel": "⚙️ Cloud Engineer",
+            "subTarget": "CloudEngineer",
+            "style": "link"
+          }
+        ]
+      },
+      "name": "links - persona tabs"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 1,
+            "content": {
+              "json": "## 🏛️ Compliance Officer Dashboard\n\n**Focus: Regulatory adherence, risk management, and audit preparation**\n\nThis section provides executive-level compliance visibility with key metrics, policy compliance status, and audit-ready reporting capabilities."
+            },
+            "name": "text - compliance officer header"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "PolicyResources\r\n| where type == \"microsoft.policyinsights/policystates\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| summarize \r\n    TotalResources = count(),\r\n    CompliantCount = countif(complianceState == \"Compliant\"),\r\n    NonCompliantCount = countif(complianceState == \"NonCompliant\")\r\n| extend CompliancePercentage = round((CompliantCount * 100.0) / TotalResources, 1)\r\n| project CompliancePercentage, CompliantCount, NonCompliantCount, TotalResources",
+              "size": 4,
+              "title": "Overall Compliance Posture",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "tiles",
+              "tileSettings": {
+                "titleContent": {
+                  "columnMatch": "CompliancePercentage",
+                  "formatter": 1,
+                  "formatOptions": {
+                    "suffix": "% Compliant"
+                  }
+                },
+                "leftContent": {
+                  "columnMatch": "CompliantCount",
+                  "formatter": 12,
+                  "formatOptions": {
+                    "palette": "green"
+                  },
+                  "numberFormat": {
+                    "unit": 17,
+                    "options": {
+                      "style": "decimal",
+                      "maximumFractionDigits": 0
+                    }
+                  }
+                },
+                "secondaryContent": {
+                  "columnMatch": "NonCompliantCount",
+                  "formatter": 1,
+                  "formatOptions": {
+                    "suffix": " Non-Compliant"
+                  }
+                },
+                "showBorder": true
+              }
+            },
+            "name": "query - compliance kpis"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "PolicyResources\r\n| where type == \"microsoft.policyinsights/policystates\"\r\n| extend \r\n    complianceState = tostring(properties.complianceState),\r\n    policySetDefinitionId = tostring(properties.policySetDefinitionId)\r\n| where isnotempty(policySetDefinitionId)\r\n| summarize \r\n    CompliantResources = countif(complianceState == \"Compliant\"),\r\n    NonCompliantResources = countif(complianceState == \"NonCompliant\"),\r\n    TotalResources = count()\r\n    by InitiativeName = tostring(split(policySetDefinitionId, \"/\")[-1])\r\n| extend ComplianceRate = round((CompliantResources * 100.0) / TotalResources, 1)\r\n| order by ComplianceRate asc",
+              "size": 0,
+              "title": "Policy Initiative Compliance Status",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "barchart",
+              "chartSettings": {
+                "xAxis": "InitiativeName",
+                "yAxis": [
+                  "ComplianceRate"
+                ],
+                "seriesLabelSettings": [
+                  {
+                    "seriesName": "ComplianceRate",
+                    "label": "Compliance %"
+                  }
+                ]
+              }
+            },
+            "name": "query - initiative compliance"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources\r\n| extend hasEnvironmentTag = isnotempty(tags[\"Environment\"])\r\n| extend hasCostCenterTag = isnotempty(tags[\"CostCenter\"])  \r\n| extend hasOwnerTag = isnotempty(tags[\"Owner\"])\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| summarize \r\n    TotalResources = count(),\r\n    WithEnvironmentTag = countif(hasEnvironmentTag),\r\n    WithCostCenterTag = countif(hasCostCenterTag),\r\n    WithOwnerTag = countif(hasOwnerTag)\r\n    by resourceGroup\r\n| extend \r\n    EnvironmentTagCompliance = round((WithEnvironmentTag * 100.0) / TotalResources, 1),\r\n    CostCenterTagCompliance = round((WithCostCenterTag * 100.0) / TotalResources, 1),\r\n    OwnerTagCompliance = round((WithOwnerTag * 100.0) / TotalResources, 1)\r\n| order by EnvironmentTagCompliance desc",
+              "size": 0,
+              "title": "Resource Tagging Compliance by Resource Group",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "EnvironmentTagCompliance",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "palette": "greenRed"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "CostCenterTagCompliance",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "palette": "greenRed"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "OwnerTagCompliance",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "palette": "greenRed"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "name": "query - tagging compliance"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "PolicyResources\r\n| where type == \"microsoft.policyinsights/policystates\"\r\n| where tostring(properties.complianceState) == \"NonCompliant\"\r\n| extend \r\n    resourceId = tostring(properties.resourceId),\r\n    policyDefinitionName = tostring(split(properties.policyDefinitionId, \"/\")[-1]),\r\n    resourceType = tostring(properties.resourceType)\r\n| join kind=leftouter (\r\n    Resources\r\n    | project id, name, resourceGroup, location, tags\r\n) on $left.resourceId == $right.id\r\n| project ResourceName = name, ResourceGroup = resourceGroup, ResourceType = resourceType, PolicyViolation = policyDefinitionName, Location = location\r\n| order by ResourceGroup, ResourceName",
+              "size": 0,
+              "title": "Non-Compliant Resources (Detailed View)",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "ResourceName",
+                    "formatter": 1,
+                    "formatOptions": {
+                      "linkTarget": "Resource",
+                      "linkIsContextBlade": true
+                    }
+                  },
+                  {
+                    "columnMatch": "PolicyViolation",
+                    "formatter": 1,
+                    "formatOptions": {
+                      "linkTarget": "Url",
+                      "linkLabel": "View Policy"
+                    }
+                  }
+                ],
+                "filter": true,
+                "sortBy": [
+                  {
+                    "itemKey": "ResourceGroup",
+                    "sortOrder": 1
+                  }
+                ]
+              },
+              "sortBy": [
+                {
+                  "itemKey": "ResourceGroup",
+                  "sortOrder": 1
+                }
+              ]
+            },
+            "name": "query - non compliant resources"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "selectedTab",
+        "comparison": "isEqualTo",
+        "value": "ComplianceOfficer"
+      },
+      "name": "group - compliance officer"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 1,
+            "content": {
+              "json": "## 🔒 Security Officer Dashboard\n\n**Focus: Security controls, threat detection, and risk management**\n\nThis section provides security-focused visibility with threat indicators, vulnerability status, and security configuration analysis."
+            },
+            "name": "text - security officer header"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "SecurityResources\r\n| where type == \"microsoft.security/assessments\"\r\n| extend \r\n    severity = tostring(properties.metadata.severity),\r\n    status = tostring(properties.status.code)\r\n| summarize count() by severity, status\r\n| order by severity desc",
+              "size": 0,
+              "title": "Security Center Recommendations by Severity",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "piechart",
+              "chartSettings": {
+                "seriesLabelSettings": [
+                  {
+                    "seriesName": "High",
+                    "color": "red"
+                  },
+                  {
+                    "seriesName": "Medium",
+                    "color": "orange"
+                  },
+                  {
+                    "seriesName": "Low",
+                    "color": "yellow"
+                  }
+                ]
+              }
+            },
+            "name": "query - security recommendations"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources\r\n| where type == \"microsoft.network/networksecuritygroups\"\r\n| extend nsgRules = properties.securityRules\r\n| mvexpand nsgRules\r\n| extend \r\n    ruleName = tostring(nsgRules.name),\r\n    access = tostring(nsgRules.properties.access),\r\n    direction = tostring(nsgRules.properties.direction),\r\n    sourceAddressPrefix = tostring(nsgRules.properties.sourceAddressPrefix),\r\n    destinationPortRange = tostring(nsgRules.properties.destinationPortRange)\r\n| where access == \"Allow\" and direction == \"Inbound\" \r\n| where sourceAddressPrefix == \"*\" or sourceAddressPrefix == \"Internet\"\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| project NSGName = name, ResourceGroup = resourceGroup, RuleName = ruleName, DestinationPort = destinationPortRange, SourcePrefix = sourceAddressPrefix\r\n| order by NSGName",
+              "size": 0,
+              "title": "High-Risk Network Security Group Rules (Internet-Facing)",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "NSGName",
+                    "formatter": 1,
+                    "formatOptions": {
+                      "linkTarget": "Resource",
+                      "linkIsContextBlade": true
+                    }
+                  },
+                  {
+                    "columnMatch": "SourcePrefix",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "*",
+                          "representation": "redBright",
+                          "text": "Any Source"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Internet",
+                          "representation": "orange",
+                          "text": "Internet"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "blue",
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true
+              }
+            },
+            "name": "query - risky nsg rules"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources\r\n| where type == \"microsoft.network/publicipaddresses\"\r\n| extend \r\n    ipAddress = tostring(properties.ipAddress),\r\n    allocationMethod = tostring(properties.publicIPAllocationMethod),\r\n    associatedResource = tostring(properties.ipConfiguration.id)\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| project PublicIPName = name, ResourceGroup = resourceGroup, IPAddress = ipAddress, AllocationMethod = allocationMethod, AssociatedResource = associatedResource, Location = location\r\n| order by ResourceGroup",
+              "size": 0,
+              "title": "Public IP Address Inventory",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "PublicIPName",
+                    "formatter": 1,
+                    "formatOptions": {
+                      "linkTarget": "Resource",
+                      "linkIsContextBlade": true
+                    }
+                  },
+                  {
+                    "columnMatch": "IPAddress",
+                    "formatter": 1,
+                    "formatOptions": {
+                      "linkTarget": "Url",
+                      "linkLabel": "🔍 IP Lookup"
+                    }
+                  }
+                ],
+                "filter": true
+              }
+            },
+            "name": "query - public ips"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources\r\n| where type == \"microsoft.storage/storageaccounts\"\r\n| extend \r\n    httpsTrafficOnly = tostring(properties.supportsHttpsTrafficOnly),\r\n    minimumTlsVersion = tostring(properties.minimumTlsVersion),\r\n    allowBlobPublicAccess = tostring(properties.allowBlobPublicAccess),\r\n    encryption = tostring(properties.encryption.services.blob.enabled)\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| project \r\n    StorageAccount = name, \r\n    ResourceGroup = resourceGroup, \r\n    HTTPSOnly = httpsTrafficOnly, \r\n    MinTLSVersion = minimumTlsVersion, \r\n    PublicBlobAccess = allowBlobPublicAccess, \r\n    BlobEncryption = encryption,\r\n    Location = location\r\n| order by StorageAccount",
+              "size": 0,
+              "title": "Storage Account Security Configuration",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "StorageAccount",
+                    "formatter": 1,
+                    "formatOptions": {
+                      "linkTarget": "Resource",
+                      "linkIsContextBlade": true
+                    }
+                  },
+                  {
+                    "columnMatch": "HTTPSOnly",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "green",
+                          "text": "✓ Enabled"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "false",
+                          "representation": "red",
+                          "text": "✗ Disabled"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "PublicBlobAccess",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "false",
+                          "representation": "green",
+                          "text": "✓ Disabled"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "red",
+                          "text": "⚠ Enabled"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "BlobEncryption",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "green",
+                          "text": "✓ Enabled"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "false",
+                          "representation": "red",
+                          "text": "✗ Disabled"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true
+              }
+            },
+            "name": "query - storage security"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "selectedTab",
+        "comparison": "isEqualTo",
+        "value": "SecurityOfficer"
+      },
+      "name": "group - security officer"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 1,
+            "content": {
+              "json": "## ⚙️ Cloud Engineer Dashboard\n\n**Focus: Implementation, automation, and technical optimization**\n\nThis section provides operational insights with resource health, configuration analysis, and optimization opportunities."
+            },
+            "name": "text - cloud engineer header"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources\r\n| summarize \r\n    ResourceCount = count(),\r\n    UniqueTypes = dcount(type),\r\n    UniqueLocations = dcount(location)\r\n    by resourceGroup, subscriptionId\r\n| extend SubscriptionName = tostring(split(subscriptionId, \"/\")[-1])\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| order by ResourceCount desc",
+              "size": 0,
+              "title": "Resource Distribution by Resource Group",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "barchart",
+              "chartSettings": {
+                "xAxis": "resourceGroup",
+                "yAxis": [
+                  "ResourceCount"
+                ],
+                "seriesLabelSettings": [
+                  {
+                    "seriesName": "ResourceCount",
+                    "label": "Resource Count"
+                  }
+                ]
+              }
+            },
+            "name": "query - resource distribution"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources\r\n| where type == \"microsoft.compute/virtualmachines\"\r\n| extend \r\n    vmSize = tostring(properties.hardwareProfile.vmSize),\r\n    osType = tostring(properties.storageProfile.osDisk.osType),\r\n    managedDisk = isnotempty(properties.storageProfile.osDisk.managedDisk),\r\n    diagnosticsEnabled = isnotempty(properties.diagnosticsProfile)\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| project VMName = name, ResourceGroup = resourceGroup, VMSize = vmSize, OSType = osType, ManagedDisk = managedDisk, DiagnosticsEnabled = diagnosticsEnabled, Location = location\r\n| order by ResourceGroup, VMName",
+              "size": 0,
+              "title": "Virtual Machine Configuration Analysis",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "VMName",
+                    "formatter": 1,
+                    "formatOptions": {
+                      "linkTarget": "Resource",
+                      "linkIsContextBlade": true
+                    }
+                  },
+                  {
+                    "columnMatch": "ManagedDisk",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "green",
+                          "text": "✓ Yes"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "false",
+                          "representation": "orange",
+                          "text": "⚠ No"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "DiagnosticsEnabled",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "green",
+                          "text": "✓ Enabled"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "false",
+                          "representation": "red",
+                          "text": "✗ Disabled"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true
+              }
+            },
+            "name": "query - vm configuration"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources\r\n| where type == \"microsoft.storage/storageaccounts\"\r\n| extend \r\n    sku = tostring(properties.sku.name),\r\n    kind = tostring(properties.kind),\r\n    accessTier = tostring(properties.accessTier),\r\n    replication = case(\r\n        properties.sku.name contains \"LRS\", \"Locally Redundant\",\r\n        properties.sku.name contains \"GRS\", \"Geo Redundant\", \r\n        properties.sku.name contains \"ZRS\", \"Zone Redundant\",\r\n        \"Other\"\r\n    )\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| summarize count() by sku, replication, accessTier\r\n| order by count_ desc",
+              "size": 0,
+              "title": "Storage Account Configuration Summary",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "piechart"
+            },
+            "name": "query - storage config"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources\r\n| where type == \"microsoft.network/virtualnetworks\"\r\n| extend addressSpace = properties.addressSpace.addressPrefixes\r\n| mvexpand addressSpace\r\n| extend \r\n    vnetName = name,\r\n    cidr = tostring(addressSpace),\r\n    subnets = array_length(properties.subnets)\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| project VNetName = vnetName, ResourceGroup = resourceGroup, CIDR = cidr, SubnetCount = subnets, Location = location\r\n| order by ResourceGroup, VNetName",
+              "size": 0,
+              "title": "Virtual Network Topology Overview",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "VNetName",
+                    "formatter": 1,
+                    "formatOptions": {
+                      "linkTarget": "Resource",
+                      "linkIsContextBlade": true
+                    }
+                  }
+                ],
+                "filter": true
+              }
+            },
+            "name": "query - network topology"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "HealthResources\r\n| where type == \"microsoft.resourcehealth/availabilitystatuses\"\r\n| extend \r\n    resourceId = tostring(properties.targetResourceId),\r\n    availabilityState = tostring(properties.availabilityState),\r\n    reasonType = tostring(properties.reasonType)\r\n| summarize count() by availabilityState, reasonType\r\n| order by availabilityState",
+              "size": 0,
+              "title": "Resource Health Status Overview",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "piechart",
+              "chartSettings": {
+                "seriesLabelSettings": [
+                  {
+                    "seriesName": "Available",
+                    "color": "green"
+                  },
+                  {
+                    "seriesName": "Unavailable",
+                    "color": "red"
+                  },
+                  {
+                    "seriesName": "Degraded",
+                    "color": "orange"
+                  }
+                ]
+              }
+            },
+            "name": "query - resource health"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "selectedTab",
+        "comparison": "isEqualTo",
+        "value": "CloudEngineer"
+      },
+      "name": "group - cloud engineer"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "---\n\n## 🔗 Quick Links & Actions\n\n**Azure Portal Quick Access:**\n- [Azure Policy Compliance](https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade/~/Compliance)\n- [Security Center Recommendations](https://portal.azure.com/#view/Microsoft_Azure_Security/SecurityMenuBlade/~/0)\n- [Resource Graph Explorer](https://portal.azure.com/#view/HubsExtension/ArgQueryBlade)\n- [Cost Management](https://portal.azure.com/#view/Microsoft_Azure_CostManagement/Menu/~/overview)\n\n**Dashboard Actions:**\n- 📊 **Export Data:** Use the export options in each chart for further analysis\n- 🔄 **Refresh Data:** Dashboard auto-refreshes every 5 minutes, or click refresh manually\n- ⚙️ **Customize:** Modify parameters above to filter data for specific scopes\n- 📋 **Share:** Use the share button to distribute dashboard links to stakeholders\n\n*This dashboard provides real-time insights into your Azure environment's compliance posture. For detailed remediation guidance, refer to the specific policy recommendations and security center findings.*"
+      },
+      "name": "text - footer"
+    }
+  ],
+  "defaultResourceIds": [
+    "/subscriptions"
+  ],
+  "fallbackResourceIds": [
+    "value::all"
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}

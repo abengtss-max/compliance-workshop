@@ -1,4 +1,4 @@
-# Lab Exercise 3: AI-Driven Compliance Assistant with Azure AI Foundry
+# Lab Exercise 4: AI-Driven Compliance Assistant with Azure AI Foundry
 
 ## 📋 Overview
 
@@ -45,7 +45,7 @@ By completing this lab, you will:
 - [ ] **Owner or Contributor** permissions in the target subscription
 - [ ] Download the **Contoso Azure Compliance and Security Report.pdf** file (link provided below)
 - [ ] Basic understanding of AI/ML concepts (helpful but not required)
-- [ ] Completed Labs 1 and 2 for context (recommended)
+- [ ] Completed Labs 1, 2, and 3 for context (recommended)
 
 ## 🗂️ Required Files
 
