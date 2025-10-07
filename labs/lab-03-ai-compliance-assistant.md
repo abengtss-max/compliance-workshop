@@ -65,7 +65,7 @@ Ensure you have access to this file in your repository:
 2. **Search for AI Foundry**
    - In the search bar, type **"AI Foundry"**
    - Select **Azure AI Foundry** from the results
-   - Click **Create** to start the deployment process
+   - Click **Create a resource** to start the deployment process
 
 ### 1B: Configure AI Foundry Instance
 
