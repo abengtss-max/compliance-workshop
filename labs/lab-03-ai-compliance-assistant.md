@@ -70,22 +70,22 @@ Ensure you have access to this file in your repository:
 ### 1B: Configure AI Foundry Instance
 
 1. **Basic Configuration**
-   - **Subscription:** Select your subscription
-   - **Resource Group:** Create new: `rg-compliance-ai-foundry`
+   - **Subscription:** Select your subscription 
+   - **Resource group:** Create new: `rg-compliance-ai-foundry` (or use existing)
+   - **Name:** `aif-compliance-workshop-ali` (replace 'ali' with your name/initials)
    - **Region:** **Sweden Central**
-   - **Name:** `aif-compliance-workshop-[yourname]` (replace [yourname] with your initials)
-   - **Pricing Tier:** Standard (required for GPT-4o)
 
-2. **Advanced Settings**
-   - **Storage Account:** Create new (default name acceptable)
-   - **Key Vault:** Create new (default name acceptable)
-   - **Application Insights:** Create new (default name acceptable)
-   - **Container Registry:** Create new (default name acceptable)
+2. **Your first project**
+   - **Default project name:** `ComplianceProject` (or leave as `firstProject`)
+   
+3. **Content Review Policy**  
+   - Review the Azure OpenAI content policy information
+   - Accept the terms for Azure OpenAI Service access
+   - Click checkboxes for content filtering and abuse monitoring if required
 
-3. **Deploy the Instance**
-   - Click **Review + create**
-   - Verify all settings, especially **Sweden Central** region
-   - Click **Create**
+4. **Deploy the Instance**
+   - Click **Next** to review settings
+   - Click **Create** 
    - **Wait time:** 5-10 minutes for deployment completion
 
 ---
