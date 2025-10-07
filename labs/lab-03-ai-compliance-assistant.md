@@ -6,7 +6,6 @@ This hands-on lab demonstrates how AI can transform compliance management by dep
 
 **Duration:** 60 minutes  
 **Target Personas:** 🏛️ Compliance Officer + 🔒 Security Officer + ⚙️ Cloud Engineer  
-**Workshop Time:** 14:00 - 15:00 (Day 2 Afternoon)  
 **Focus:** AI-powered compliance automation and decision support
 
 ## 🏢 Real-World Scenario: Contoso Ltd Quarterly Compliance Review

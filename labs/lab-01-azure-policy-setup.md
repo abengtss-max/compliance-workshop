@@ -6,8 +6,7 @@ This hands-on lab teaches the fundamentals of implementing CIS (Center for Inter
 
 **Duration:** 60 minutes  
 **Target Personas:** 🏛️ Compliance Officers + 🔒 Security Officers + ⚙️ Cloud Engineers  
-**Focus:** CIS Azure Foundations Benchmark v2.0.0  
-**Workshop Time:** 10:00 - 11:00 AM
+**Focus:** CIS Azure Foundations Benchmark v2.0.0
 
 ## 🎯 Learning Objectives
 
@@ -42,9 +41,10 @@ By completing this lab, you will:
 
 We'll create a CIS-aligned policy that requires specific tags on all resources for compliance tracking.
 
-1. **Navigate to Definitions**
-   - In the left menu, click **Definitions**
-   - Click **+ Policy definition**
+1. **Navigate to Policy Definitions**
+   - In the left menu, click **Policy**
+   - Under **Authoring**, click **Definitions**
+   - Click **+ Policy definition** to create a new policy definition
 
 2. **Configure the Policy Definition**
    - **Definition location:** Select your subscription
@@ -65,8 +65,16 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
            "notEquals": "Microsoft.Resources/subscriptions/resourceGroups"
          },
          {
-           "field": "tags['Environment']",
-           "exists": "false"
+           "anyOf": [
+             {
+               "field": "tags['Environment']",
+               "exists": "false"
+             },
+             {
+               "field": "tags['Environment']",
+               "equals": ""
+             }
+           ]
          }
        ]
      },
@@ -75,6 +83,8 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
      }
    }
    ```
+
+   > **Note:** Make sure you're in the Policy rule section, not the Properties section when pasting this JSON.
 
 4. **Add Parameters Section**
    
@@ -105,8 +115,9 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
 ## Step 3: Create a Policy Initiative (Set)
 
 1. **Navigate to Initiative Definitions**
-   - In the left menu, click **Definitions**
-   - Click **+ Initiative definition**
+   - In the left menu, click **Policy**
+   - Under **Authoring**, click **Definitions**  
+   - Click **+ Initiative definition** to create a new initiative
 
 2. **Configure the Initiative**
    - **Definition location:** Select your subscription

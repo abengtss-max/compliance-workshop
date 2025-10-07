@@ -6,8 +6,7 @@ This practical exercise simulates a real-world compliance scenario where you inh
 
 **Duration:** 60 minutes  
 **Target Personas:** 🏛️ Compliance Officers + 🔒 Security Officers + ⚙️ Cloud Engineers  
-**Focus:** Real-world CIS compliance assessment and remediation  
-**Workshop Time:** 14:00 - 15:00 PM
+**Focus:** Real-world CIS compliance assessment and remediation
 
 ## 🎯 Learning Objectives
 

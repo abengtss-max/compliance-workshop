@@ -2,15 +2,11 @@
 
 ## Welcome to the Azure Compliance Workshop
 
-This comprehensive workshop is designed to empower compliance professionals, security officers, and cloud engineers with hands-on experience in Azure compliance management. Through practical exercises, you'll learn to implement robust compliance frameworks, automate governance processes, and leverage AI-driven insights for enterprise-scale compliance operations.
+Hands-on workshop for compliance professionals, security officers, and cloud engineers. Learn to implement Azure compliance frameworks, automate governance, and leverage AI for compliance management.
 
 ## 🎯 Workshop Objectives
 
-By completing this workshop, participants will:
-
-- **Master Azure Policy** - Create, assign, and manage custom policies for organizational compliance
-- **Leverage Resource Graph** - Query compliance data and build executive dashboards
-- **Automate Exception Management** - Implement streamlined approval workflows for policy exemptions  
+- **Master Azure Policy** - Create and manage custom policies for organizational compliance
 - **Deploy AI Compliance Assistants** - Use Azure AI Foundry to build intelligent compliance tools
 - **Understand Persona-Based Views** - Navigate compliance from different organizational perspectives
 
@@ -42,56 +38,13 @@ This workshop is tailored for three key organizational roles:
 ## 🧪 Lab Exercises
 
 ### 📋 [Lab Exercise 1: Azure Policy & Initiative Setup](./labs/lab-01-azure-policy-setup.md)
-**Workshop Time:** Morning Session (10:00-11:00)  
-**Target Persona:** 🏛️ Compliance Officer + 🔒 Security Officer + ⚙️ Cloud Engineer  
-**Duration:** 60 minutes  
-**Prerequisites:** Azure subscription with Contributor or Policy Contributor access  
-**Focus:** CIS Azure Foundations Benchmark v2.0.0
+Create custom Azure Policy definitions aligned with CIS benchmarks and build comprehensive policy initiatives for organizational compliance monitoring.
 
-Learn to create custom Azure Policy definitions aligned with CIS benchmarks, build comprehensive policy initiatives, and assign them for organizational compliance monitoring.
-
-**Key Learning Outcomes:**
-- Navigate Azure Policy service and understand CIS benchmark alignment
-- Create custom Azure Policy definitions for compliance controls using JSON
-- Build and assign Policy initiatives incorporating CIS policies
-- Test policy enforcement and observe compliance effects
-- Review compliance dashboards and document baseline findings
-
----
-
-### 🎯 [Lab Exercise 2: CIS Compliance Scenario](./labs/lab-02-cis-compliance-scenario.md)
-**Workshop Time:** Afternoon Session (14:00-15:00)  
-**Target Persona:** 🏛️ Compliance Officer + 🔒 Security Officer + ⚙️ Cloud Engineer  
-**Duration:** 60 minutes  
-**Prerequisites:** Completed Lab Exercise 1, Group role assignments  
-**Focus:** Real-world CIS compliance assessment and remediation
-
-Simulate inheriting an Azure subscription with compliance violations and execute a complete assessment, remediation, and reporting cycle using team-based roles.
-
-**Key Learning Outcomes:**
-- Assess existing environments against CIS benchmarks using policy data
-- Prioritize remediation efforts based on risk and business impact
-- Execute both automated and manual remediation tasks
-- Collect comprehensive audit evidence for compliance reporting
-- Present findings and recommendations to stakeholders
-
----
+### 🎯 [Lab Exercise 2: CIS Compliance Scenario](./labs/lab-02-cis-compliance-scenario.md)  
+Simulate inheriting an Azure subscription with compliance violations and execute assessment, remediation, and reporting using team-based roles.
 
 ### 🤖 [Lab Exercise 3: AI-Driven Compliance Assistant](./labs/lab-03-ai-compliance-assistant.md)
-**Workshop Time:** Day 2 Afternoon Session (14:00-15:00)  
-**Target Persona:** 🏛️ Compliance Officer + 🔒 Security Officer + ⚙️ Cloud Engineer  
-**Duration:** 60 minutes  
-**Prerequisites:** Azure subscription with AI services access
-
-Deploy an intelligent compliance assistant using Azure AI Foundry with GPT-4o, complete with RAG functionality using real compliance data for persona-based analysis and decision support.
-
-**Key Learning Outcomes:**
-- Deploy Azure AI Foundry instance in Sweden Central with GPT-4o model
-- Create and configure AI agent with compliance-specific system prompts
-- Upload and index Contoso compliance report for RAG functionality  
-- Use persona-based prompts to extract actionable insights from compliance data
-- Experience practical value of AI assistants for compliance analysis and reporting
-- Understand AI limitations and production implementation considerations
+Deploy an intelligent compliance assistant using Azure AI Foundry with GPT-4o and RAG functionality for persona-based compliance analysis.
 
 ---
 
@@ -118,14 +71,16 @@ compliance-workshop/
 4. **Follow the lab exercises** in order, as each builds upon previous concepts
 5. **Join the discussion** - Share findings and ask questions during group sessions
 
-## 📋 Prerequisites Checklist
+## 📋 Prerequisites
 
-Before starting the workshop, ensure you have:
+- **Azure Subscription** with Contributor or Owner access
+- **Basic familiarity** with Azure Portal navigation
+- **Text editor** for viewing and editing JSON/code files
 
-- [ ] **Azure Subscription** with Contributor or Owner access
-- [ ] **Azure CLI** or **Azure PowerShell** installed (for some exercises)
-- [ ] **Basic familiarity** with Azure Portal navigation
-- [ ] **Text editor** for viewing and editing JSON/code files
+**Lab Dependencies:**
+- Lab 1: No prerequisites  
+- Lab 2: Complete Lab 1 first
+- Lab 3: Azure subscription with AI services access
 
 ## 💡 Workshop Tips
 
