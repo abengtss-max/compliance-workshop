@@ -27,7 +27,7 @@ By completing this lab, you will:
 
 ## 🏢 Real-World Scenario: Contoso Ltd Quarterly Compliance Review
 
-**Background:** Following your successful policy implementation and compliance remediation, the executive team wants comprehensive visibility into the organization's compliance posture. You need to create data-driven dashboards that provide real-time insights for different stakeholders across the organization.
+**Background:** Following your successful policy implementation and compliance remediation, the executive team wants comprehensive visibility into the organization's compliance posture. You need to create data-driven dashboards that provide insights for different stakeholders across the organization.
 
 **Challenge:** Build role-specific compliance dashboards that enable:
 - **Compliance Officers** to track regulatory adherence and generate reports
@@ -433,7 +433,7 @@ Compare dashboard results with:
 ## 🏆 Key Takeaways
 
 ### **For Compliance Officers:**
-- **Resource Graph queries** provide real-time compliance visibility across large Azure environments
+- **Resource Graph queries** provide compliance visibility across large Azure environments
 - **Automated dashboards** enable continuous monitoring without manual report generation
 - **Tag-based governance** is essential for effective compliance tracking and cost allocation
 - **Policy exemptions** require careful tracking and regular review for audit purposes
