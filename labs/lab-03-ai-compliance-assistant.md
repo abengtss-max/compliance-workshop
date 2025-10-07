@@ -101,11 +101,10 @@ Ensure you have access to this file in your repository:
 
 ### 2B: Deploy GPT-4o Model
 
-1. **Select GPT-4o Model**
-   - Find **GPT-4o** in the model catalog
-   - Click **Deploy**
+1. **Use GPT-4o Model**
+   - On the GPT-4o model page, click **Use this model**
    - **Deployment name:** `gpt-4o-compliance-agent`
-   - **Version:** Latest available
+   - **Version:** Latest available (shown in dropdown)
    - **Deployment type:** Standard
 
 2. **Configure Model Settings**
