@@ -151,8 +151,8 @@ You have access to compliance assessment data through uploaded documents. Use th
 ### 3B: Test Basic Agent Functionality
 
 1. **Open Agent Chat**
-   - Click on your newly created agent
-   - This opens the **Agent Playground**
+   - With your agent selected, click the **"Try in playground"** button in the top right corner of the screen
+   - This opens the **Agent Playground** for testing
    - Test with: "Hello, I'm a Compliance Officer. Can you help me understand your capabilities?"
 
 2. **Verify Response Quality**
