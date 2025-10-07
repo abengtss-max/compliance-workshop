@@ -94,10 +94,10 @@ Ensure you have access to this file in your repository:
    - **Go to Azure AI Foundry portal**
    - This opens the AI Foundry web interface
 
-2. **Navigate to Models**
-   - In the left sidebar, click **Models**
-   - Click **+ Deploy model**
-   - Search for **GPT-4o**
+2. **Navigate to Model Catalog**
+   - In the left sidebar, click **Model catalog**
+   - Search for **GPT-4o** in the model catalog
+   - Click on the **GPT-4o** model card
 
 ### 2B: Deploy GPT-4o Model
 
