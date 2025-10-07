@@ -114,17 +114,17 @@ Ensure you have access to this file in your repository:
 
 ## Step 3: Create Compliance AI Agent
 
-### 3A: Create New Agent
+### 3A: Configure Existing Agent
 
 1. **Navigate to Agents**
    - In AI Foundry Studio, click **Agents** in the left sidebar
-   - Click **+ New agent**
-   - **Agent name:** `ComplianceAdvisor-[yourname]`
-   - **Description:** `AI assistant for Azure compliance analysis and recommendations`
+   - You'll see an auto-generated agent in the list (e.g., "Agent913")
+   - Click on this existing agent to configure it
 
-2. **Configure Agent Settings**
-   - **Model:** Select your deployed `gpt-4o-compliance-agent`
-   - **System message:** Copy and paste the following:
+2. **Update Agent Settings**
+   - **Agent name:** Change to `ComplianceAdvisor-[yourname]`
+   - **Deployment:** Select your deployed `gpt-4o-compliance-agent`
+   - **Instructions:** Copy and paste the following system message:
 
 ```
 You are a specialized Azure Compliance Advisor AI assistant. You help Compliance Officers, Security Officers, and Cloud Engineers analyze compliance data, provide remediation guidance, and generate actionable insights.
