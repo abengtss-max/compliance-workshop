@@ -52,10 +52,9 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    - **Description:** `CIS: Enforce mandatory tags on all resources for compliance tracking and audit purposes`
    - **Category:** Create new category: **"Compliance"**
 
-3. **Create the Policy Rule**
-   
-   Copy and paste this JSON into the **Policy rule** field:
+3. **Define Policy Rule and Parameters**
 
+   **A. In the Policy rule section**, paste this JSON:
    ```json
    {
      "if": {
@@ -84,12 +83,7 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    }
    ```
 
-   > **Important:** This should be pasted into the **Policy rule** section only. Do NOT include any "properties" wrapper.
-
-4. **Add Parameters Section**
-   
-   Copy and paste this JSON into the **Parameters** field:
-
+   **B. In the Parameters section**, paste this JSON:
    ```json
    {
      "effect": {
@@ -108,9 +102,7 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    }
    ```
 
-   > **Troubleshooting:** If you can't see parameters in Step 4.3, ensure both the Policy rule and Parameters sections are correctly filled and saved.
-
-5. **Save the Policy**
+4. **Save the Policy**
    - Click **Save**
    - Your custom CIS-aligned policy is now created
 
