@@ -110,11 +110,6 @@ Ensure you have access to this file in your repository:
 2. **Deploy the Model**
    - Click **Deploy**
 
-3. **Verify Deployment**
-   - Wait for deployment status to show **Succeeded**
-   - Click **Open in playground**
-   - Test the model with a simple query: "Hello, can you help with compliance?"
-
 ---
 
 ## Step 3: Create Compliance AI Agent
