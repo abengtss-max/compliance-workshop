@@ -99,17 +99,17 @@ Review the most typical violations you'll encounter:
 
 **All Team Members:** Collaborate to rank violations using this framework:
 
-#### **🔴 Critical Priority** 
+#### **🔴 High Priority**
 - Security configurations exposing data (storage encryption, network access)
 - Identity and access management weaknesses
 - Public-facing resources with security gaps
 
-#### **🟡 High Priority**
+#### **🟡 Medium Priority**
 - Operational compliance gaps (tagging, monitoring)
 - Infrastructure security improvements (managed disks, backup)
 - Governance violations (unauthorized RBAC)
 
-#### **🟢 Medium Priority** 
+#### **🟢 Low Priority**
 - Documentation and metadata improvements
 - Non-security related policy violations
 - Cosmetic compliance issues
