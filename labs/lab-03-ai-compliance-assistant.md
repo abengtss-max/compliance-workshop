@@ -91,7 +91,7 @@ Ensure you have access to this file in your repository:
 
 1. **Open AI Foundry Studio**
    - Once deployment is complete, click **Go to resource**
-   - Click **Launch AI Foundry Studio** button
+   - **Go to Azure AI Foundry portal**
    - This opens the AI Foundry web interface
 
 2. **Navigate to Models**
