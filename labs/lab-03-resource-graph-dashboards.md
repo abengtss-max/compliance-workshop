@@ -341,15 +341,15 @@ Resources
 ### 4A: Create Azure Workbook
 
 1. Navigate to Azure Portal > **Azure Workbooks**
-2. Click **+ New** to create a blank workbook
-3. **Save as:** "Compliance Dashboard - Multi-Persona"
-4. **Resource Group:** Choose existing or create "rg-compliance-workshop"
+2. Click **+ New**
+3. Click **+ New** to create a blank workbook
+4. **Save as:** "Compliance Dashboard - Multi-Persona"
+5. **Resource Group:** Choose existing or create "rg-compliance-workshop"
 
 ### 4B: Import Pre-Built Dashboard Template
 
 1. **Download the dashboard template:**
    - Navigate to: `workbooks/workbook-compliance-personas.json`
-   - **Alternative:** Import from repository link
 
 2. **Import process:**
    - In Azure Workbooks, click **Advanced Editor** (</> icon)
