@@ -404,15 +404,8 @@ Test each dashboard section:
 3. **Chart interactions** - Click pie chart segments to filter related data
 4. **Export functionality** - Test PDF and Excel export options
 
-### 5B: Data Accuracy Validation
 
-Compare dashboard results with:
-
-1. **Azure Policy compliance pages** - Verify compliance percentages match
-2. **Security Center recommendations** - Cross-check security findings
-3. **Resource listings** - Validate resource counts and configurations
-
-### 5C: Performance Testing
+### 5B: Performance Testing
 
 1. **Load time assessment** - Note query execution speeds
 2. **Large dataset handling** - Test with subscriptions containing many resources
@@ -450,12 +443,6 @@ Compare dashboard results with:
 - **Configuration drift detection** helps maintain compliance and security standards
 - **Automated monitoring** reduces manual effort while improving accuracy and coverage
 
-## 🔗 Next Steps
-
-1. **Schedule regular dashboard reviews** - Set up weekly/monthly compliance review meetings
-2. **Create automated alerts** - Configure Azure Monitor alerts based on query results
-3. **Expand query library** - Develop custom queries for organization-specific requirements
-4. **Integrate with CI/CD** - Include compliance checks in deployment pipelines
 
 ## 🆘 Troubleshooting Tips
 
