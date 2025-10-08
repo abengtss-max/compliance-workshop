@@ -53,7 +53,6 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    - **Category:** Create new category: **"Compliance"**
 
 3. **Define Policy Using Advanced Editor**
-   - Click the **Advanced Editor** button (</> icon) at the top of the policy definition page
    - **Clear all existing content** in the editor
    - **Paste this complete JSON:**
 
