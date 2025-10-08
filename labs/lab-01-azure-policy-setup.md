@@ -59,8 +59,6 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
 
    ```json
    {
-     "displayName": "CIS-Enforce-Tag-on-Resources",
-     "description": "CIS: Enforce mandatory tags on all resources for compliance tracking and audit purposes",
      "policyType": "Custom",
      "mode": "All",
      "parameters": {
