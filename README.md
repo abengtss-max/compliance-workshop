@@ -77,9 +77,17 @@ compliance-workshop/
 
 ## 📋 Prerequisites
 
-- **Azure Subscription** with Contributor or Owner access
+- **Azure Subscription** with appropriate permissions:
+  - **Owner** role (recommended) - Full access to all workshop features
+  - **Policy Contributor** role - Required minimum for policy creation and management
+  - **Note:** Standard **Contributor** role is *insufficient* for policy operations
 - **Basic familiarity** with Azure Portal navigation
 - **Text editor** for viewing and editing JSON/code files
+
+**Required Permissions by Lab:**
+- **Labs 1-2:** Policy Contributor or Owner role (for policy creation/assignment)
+- **Lab 3:** Reader role sufficient (for querying Resource Graph)
+- **Lab 4:** Contributor role + AI services access
 
 **Lab Dependencies:**
 - Lab 1: No prerequisites  
