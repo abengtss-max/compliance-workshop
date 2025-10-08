@@ -149,12 +149,19 @@
             "name": "text - compliance officer header"
           },
           {
+            "type": 1,
+            "content": {
+              "json": "**📊 Overall Compliance Posture**\n\nThis metric shows your organization's compliance percentage based on Azure Policy evaluations. The percentage represents how many of your resources are compliant with assigned policies divided by total evaluated resources. A higher percentage indicates better adherence to your governance standards.\n\n- **Target**: Maintain >90% compliance\n- **Green**: 85%+ (Good governance)\n- **Yellow**: 70-85% (Needs attention)\n- **Red**: <70% (Immediate action required)"
+            },
+            "name": "text - compliance posture explanation"
+          },
+          {
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
               "query": "PolicyResources\r\n| where type == \"microsoft.policyinsights/policystates\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| summarize \r\n    TotalResources = count(),\r\n    CompliantCount = countif(complianceState == \"Compliant\"),\r\n    NonCompliantCount = countif(complianceState == \"NonCompliant\")\r\n| extend CompliancePercentage = round((CompliantCount * 100.0) / TotalResources, 1)\r\n| project CompliancePercentage, CompliantCount, NonCompliantCount, TotalResources",
               "size": 4,
-              "title": "Overall Compliance Posture",
+              "title": "Compliance Overview",
               "timeContext": {
                 "durationMs": 86400000
               },
@@ -169,7 +176,51 @@
                   "columnMatch": "CompliancePercentage",
                   "formatter": 1,
                   "formatOptions": {
-                    "suffix": "% Compliant"
+                    "suffix": "% Overall Compliance"
+                  }
+                },
+                "leftContent": {
+                  "columnMatch": "CompliancePercentage",
+                  "formatter": 12,
+                  "formatOptions": {
+                    "palette": "redGreen",
+                    "aggregation": "Max"
+                  },
+                  "numberFormat": {
+                    "unit": 1,
+                    "options": {
+                      "style": "decimal",
+                      "maximumFractionDigits": 1
+                    }
+                  }
+                },
+                "showBorder": true
+              }
+            },
+            "name": "query - compliance percentage"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "PolicyResources\r\n| where type == \"microsoft.policyinsights/policystates\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| summarize \r\n    CompliantCount = countif(complianceState == \"Compliant\")\r\n| project CompliantCount",
+              "size": 4,
+              "title": "Compliant Resources",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "tiles",
+              "tileSettings": {
+                "titleContent": {
+                  "columnMatch": "CompliantCount",
+                  "formatter": 1,
+                  "formatOptions": {
+                    "suffix": " Compliant Resources"
                   }
                 },
                 "leftContent": {
@@ -177,26 +228,55 @@
                   "formatter": 12,
                   "formatOptions": {
                     "palette": "green"
-                  },
-                  "numberFormat": {
-                    "unit": 17,
-                    "options": {
-                      "style": "decimal",
-                      "maximumFractionDigits": 0
-                    }
-                  }
-                },
-                "secondaryContent": {
-                  "columnMatch": "NonCompliantCount",
-                  "formatter": 1,
-                  "formatOptions": {
-                    "suffix": " Non-Compliant"
                   }
                 },
                 "showBorder": true
               }
             },
-            "name": "query - compliance kpis"
+            "name": "query - compliant resources"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "PolicyResources\r\n| where type == \"microsoft.policyinsights/policystates\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| summarize \r\n    NonCompliantCount = countif(complianceState == \"NonCompliant\")\r\n| project NonCompliantCount",
+              "size": 4,
+              "title": "Non-Compliant Resources",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "tiles",
+              "tileSettings": {
+                "titleContent": {
+                  "columnMatch": "NonCompliantCount",
+                  "formatter": 1,
+                  "formatOptions": {
+                    "suffix": " Non-Compliant Resources"
+                  }
+                },
+                "leftContent": {
+                  "columnMatch": "NonCompliantCount",
+                  "formatter": 12,
+                  "formatOptions": {
+                    "palette": "red"
+                  }
+                },
+                "showBorder": true
+              }
+            },
+            "name": "query - non-compliant resources"
+          },
+          {
+            "type": 1,
+            "content": {
+              "json": "**📈 Policy Initiative Compliance Status**\n\nThis chart displays compliance rates for each Policy Initiative (also called Policy Sets) assigned to your environment. Each bar represents a different initiative, with the percentage showing how many resources comply with that specific set of policies.\n\n- **CIS Benchmarks**: Industry security standards\n- **Regulatory Compliance**: Legal/regulatory requirements\n- **Corporate Standards**: Internal governance policies\n\nLower percentages indicate initiatives requiring immediate remediation focus."
+            },
+            "name": "text - initiative compliance explanation"
           },
           {
             "type": 3,
@@ -233,7 +313,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "Resources\r\n| extend hasEnvironmentTag = isnotempty(tags[\"Environment\"])\r\n| extend hasCostCenterTag = isnotempty(tags[\"CostCenter\"])  \r\n| extend hasOwnerTag = isnotempty(tags[\"Owner\"])\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| summarize \r\n    TotalResources = count(),\r\n    WithEnvironmentTag = countif(hasEnvironmentTag),\r\n    WithCostCenterTag = countif(hasCostCenterTag),\r\n    WithOwnerTag = countif(hasOwnerTag)\r\n    by resourceGroup\r\n| extend \r\n    EnvironmentTagCompliance = round((WithEnvironmentTag * 100.0) / TotalResources, 1),\r\n    CostCenterTagCompliance = round((WithCostCenterTag * 100.0) / TotalResources, 1),\r\n    OwnerTagCompliance = round((WithOwnerTag * 100.0) / TotalResources, 1)\r\n| order by EnvironmentTagCompliance desc",
+              "query": "Resources\r\n| extend hasEnvironmentTag = isnotempty(tags[\"Environment\"])\r\n| extend hasCostCenterTag = isnotempty(tags[\"CostCenter\"])  \r\n| extend hasOwnerTag = isnotempty(tags[\"Owner\"])\r\n| where \"{ResourceGroups}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| summarize \r\n    TotalResources = count(),\r\n    WithEnvironmentTag = countif(hasEnvironmentTag),\r\n    WithCostCenterTag = countif(hasCostCenterTag),\r\n    WithOwnerTag = countif(hasOwnerTag)\r\n    by resourceGroup\r\n| extend \r\n    EnvironmentTagCompliance = round((WithEnvironmentTag * 100.0) / TotalResources, 1),\r\n    CostCenterTagCompliance = round((WithCostCenterTag * 100.0) / TotalResources, 1),\r\n    OwnerTagCompliance = round((WithOwnerTag * 100.0) / TotalResources, 1)\r\n| order by EnvironmentTagCompliance desc",
               "size": 0,
               "title": "Resource Tagging Compliance by Resource Group",
               "timeContext": {
@@ -298,7 +378,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "PolicyResources\r\n| where type == \"microsoft.policyinsights/policystates\"\r\n| where tostring(properties.complianceState) == \"NonCompliant\"\r\n| extend \r\n    resourceId = tostring(properties.resourceId),\r\n    policyDefinitionName = tostring(split(properties.policyDefinitionId, \"/\")[-1]),\r\n    resourceType = tostring(properties.resourceType)\r\n| join kind=leftouter (\r\n    Resources\r\n    | project id, name, resourceGroup, location, tags\r\n) on $left.resourceId == $right.id\r\n| project ResourceName = name, ResourceGroup = resourceGroup, ResourceType = resourceType, PolicyViolation = policyDefinitionName, Location = location\r\n| order by ResourceGroup, ResourceName",
+              "query": "PolicyResources\r\n| where type == \"microsoft.policyinsights/policystates\"\r\n| where tostring(properties.complianceState) == \"NonCompliant\"\r\n| extend \r\n    resourceId = tostring(properties.resourceId),\r\n    policyDefinitionId = tostring(properties.policyDefinitionId),\r\n    policyDefinitionName = tostring(split(properties.policyDefinitionId, \"/\")[-1]),\r\n    resourceType = tostring(properties.resourceType)\r\n| join kind=leftouter (\r\n    Resources\r\n    | project id, name, resourceGroup, location, type, tags\r\n) on $left.resourceId == $right.id\r\n| extend \r\n    ResourceDisplayName = coalesce(name, tostring(split(resourceId, \"/\")[-1])),\r\n    PolicyLink = strcat(\"https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/\", url_encode(policyDefinitionId))\r\n| project \r\n    ResourceName = ResourceDisplayName, \r\n    ResourceGroup = resourceGroup, \r\n    ResourceType = coalesce(type, resourceType), \r\n    PolicyViolation = policyDefinitionName, \r\n    Location = location,\r\n    ResourceId = resourceId,\r\n    PolicyLink = PolicyLink\r\n| order by ResourceGroup, ResourceName",
               "size": 0,
               "title": "Non-Compliant Resources (Detailed View)",
               "timeContext": {
@@ -317,6 +397,7 @@
                     "formatter": 1,
                     "formatOptions": {
                       "linkTarget": "Resource",
+                      "linkColumn": "ResourceId",
                       "linkIsContextBlade": true
                     }
                   },
@@ -325,8 +406,17 @@
                     "formatter": 1,
                     "formatOptions": {
                       "linkTarget": "Url",
+                      "linkColumn": "PolicyLink",
                       "linkLabel": "View Policy"
                     }
+                  },
+                  {
+                    "columnMatch": "ResourceId",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "PolicyLink",
+                    "formatter": 5
                   }
                 ],
                 "filter": true,
@@ -369,12 +459,19 @@
             "name": "text - security officer header"
           },
           {
+            "type": 1,
+            "content": {
+              "json": "**🔒 Microsoft Defender for Cloud Recommendations**\n\nThis chart shows security recommendations that require attention, filtered to show only **Unhealthy** (actionable) assessments by severity level. The numbers align with what you see in the Microsoft Defender for Cloud portal under Recommendations.\n\n- **High Severity**: Critical security issues requiring immediate attention\n- **Medium Severity**: Important security improvements to implement\n- **Low Severity**: Security enhancements to consider when possible\n\n*Note: Only shows recommendations requiring action, not all assessments.*"
+            },
+            "name": "text - defender explanation"
+          },
+          {
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "SecurityResources\r\n| where type == \"microsoft.security/assessments\"\r\n| extend \r\n    severity = tostring(properties.metadata.severity),\r\n    status = tostring(properties.status.code)\r\n| summarize count() by severity, status\r\n| order by severity desc",
+              "query": "SecurityResources\r\n| where type == \"microsoft.security/assessments\"\r\n| where tostring(properties.status.code) == \"Unhealthy\"\r\n| extend \r\n    severity = tostring(properties.metadata.severity),\r\n    assessmentName = tostring(properties.displayName),\r\n    resourceId = tostring(properties.resourceDetails.id)\r\n| where isnotempty(severity)\r\n| summarize RecommendationCount = count() by severity\r\n| order by case(severity == \"High\", 1, severity == \"Medium\", 2, severity == \"Low\", 3, 4)",
               "size": 0,
-              "title": "Security Center Recommendations by Severity",
+              "title": "Microsoft Defender for Cloud Recommendations by Severity",
               "timeContext": {
                 "durationMs": 86400000
               },
@@ -383,15 +480,60 @@
               "crossComponentResources": [
                 "{Subscriptions}"
               ],
-              "visualization": "piechart",
+              "visualization": "tiles",
+              "tileSettings": {
+                "titleContent": {
+                  "columnMatch": "severity",
+                  "formatter": 1
+                },
+                "leftContent": {
+                  "columnMatch": "RecommendationCount",
+                  "formatter": 12,
+                  "formatOptions": {
+                    "palette": "categorical"
+                  }
+                },
+                "rightContent": {
+                  "columnMatch": "severity",
+                  "formatter": 18,
+                  "formatOptions": {
+                    "thresholdsOptions": "colors",
+                    "thresholdsGrid": [
+                      {
+                        "operator": "==",
+                        "thresholdValue": "High",
+                        "representation": "redBright",
+                        "text": "High Severity"
+                      },
+                      {
+                        "operator": "==",
+                        "thresholdValue": "Medium",
+                        "representation": "orange",
+                        "text": "Medium Severity"
+                      },
+                      {
+                        "operator": "==",
+                        "thresholdValue": "Low",
+                        "representation": "yellow",
+                        "text": "Low Severity"
+                      }
+                    ]
+                  }
+                },
+                "showBorder": true
+              },
               "chartSettings": {
+                "xAxis": "severity",
+                "yAxis": [
+                  "RecommendationCount"
+                ],
                 "seriesLabelSettings": [
                   {
                     "seriesName": "High",
                     "color": "red"
                   },
                   {
-                    "seriesName": "Medium",
+                    "seriesName": "Medium", 
                     "color": "orange"
                   },
                   {
@@ -402,6 +544,71 @@
               }
             },
             "name": "query - security recommendations"
+          },
+          {
+            "type": 1,
+            "content": {
+              "json": "**🛡️ Security Posture Overview**\n\nThis metric shows your organization's overall security health based on Microsoft Defender for Cloud assessments:\n\n- **Security Percentage**: Calculated as (Healthy Resources ÷ Total Evaluated Resources) × 100\n- **Healthy Resources**: Resources that pass security assessments (shown in green)\n- **Recommendations**: Number of security issues requiring attention (actionable items)\n\n**Example**: 42.7% means 344 resources are secure out of 805 total assessed resources (344 + 461)\n\n**Target Ranges:**\n- **90%+**: Excellent security posture\n- **75-89%**: Good security, minor improvements needed\n- **60-74%**: Moderate risk, remediation recommended\n- **<60%**: High risk, immediate action required"
+            },
+            "name": "text - security posture explanation"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "SecurityResources\r\n| where type == \"microsoft.security/assessments\"\r\n| extend status = tostring(properties.status.code)\r\n| summarize \r\n    TotalAssessments = count(),\r\n    HealthyResources = countif(status == \"Healthy\"),\r\n    UnhealthyRecommendations = countif(status == \"Unhealthy\"),\r\n    NotApplicable = countif(status == \"NotApplicable\")\r\n| extend ComplianceRate = round((HealthyResources * 100.0) / (HealthyResources + UnhealthyRecommendations), 1)\r\n| project ComplianceRate, UnhealthyRecommendations, HealthyResources, TotalAssessments",
+              "size": 4,
+              "title": "Security Posture Overview",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "tiles",
+              "tileSettings": {
+                "titleContent": {
+                  "columnMatch": "ComplianceRate",
+                  "formatter": 1,
+                  "formatOptions": {
+                    "suffix": "% Security Posture"
+                  }
+                },
+                "leftContent": {
+                  "columnMatch": "ComplianceRate",
+                  "formatter": 12,
+                  "formatOptions": {
+                    "palette": "redGreen",
+                    "aggregation": "Max"
+                  },
+                  "numberFormat": {
+                    "unit": 1,
+                    "options": {
+                      "style": "decimal",
+                      "maximumFractionDigits": 1
+                    }
+                  }
+                },
+                "rightContent": {
+                  "columnMatch": "HealthyResources",
+                  "formatter": 1,
+                  "formatOptions": {
+                    "suffix": " Healthy Resources"
+                  }
+                },
+                "secondaryContent": {
+                  "columnMatch": "UnhealthyRecommendations",
+                  "formatter": 1,
+                  "formatOptions": {
+                    "suffix": " Need Attention"
+                  }
+                },
+                "showBorder": true
+              }
+            },
+            "name": "query - security posture summary"
           },
           {
             "type": 3,
@@ -620,6 +827,13 @@
             "name": "text - cloud engineer header"
           },
           {
+            "type": 1,
+            "content": {
+              "json": "**📊 Resource Distribution by Resource Group**\n\nThis chart shows the number of Azure resources deployed in each Resource Group across your subscriptions. It helps identify:\n\n- **Resource concentration**: Which groups have the most resources\n- **Organizational patterns**: How resources are grouped by teams/projects\n- **Management complexity**: Groups with high resource counts may need subdivision\n- **Cost allocation**: Resource density correlates with potential costs\n\nUse this data for capacity planning, cost management, and organizational governance."
+            },
+            "name": "text - resource distribution explanation"
+          },
+          {
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
@@ -728,7 +942,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "Resources\r\n| where type == \"microsoft.storage/storageaccounts\"\r\n| extend \r\n    sku = tostring(properties.sku.name),\r\n    kind = tostring(properties.kind),\r\n    accessTier = tostring(properties.accessTier),\r\n    replication = case(\r\n        properties.sku.name contains \"LRS\", \"Locally Redundant\",\r\n        properties.sku.name contains \"GRS\", \"Geo Redundant\", \r\n        properties.sku.name contains \"ZRS\", \"Zone Redundant\",\r\n        \"Other\"\r\n    )\r\n| where \"{ResourceGroups:escape}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| summarize count() by sku, replication, accessTier\r\n| order by count_ desc",
+              "query": "Resources\r\n| where type == \"microsoft.storage/storageaccounts\"\r\n| extend \r\n    sku = tostring(properties.sku.name),\r\n    kind = tostring(properties.kind),\r\n    accessTier = tostring(properties.accessTier)\r\n| extend replication = case(\r\n        sku contains \"LRS\", \"Locally Redundant\",\r\n        sku contains \"GRS\", \"Geo Redundant\", \r\n        sku contains \"ZRS\", \"Zone Redundant\",\r\n        \"Other\"\r\n    )\r\n| where \"{ResourceGroups}\" == \"value::all\" or resourceGroup in ({ResourceGroups})\r\n| summarize StorageCount = count() by sku, replication\r\n| order by StorageCount desc",
               "size": 0,
               "title": "Storage Account Configuration Summary",
               "timeContext": {
@@ -742,6 +956,13 @@
               "visualization": "piechart"
             },
             "name": "query - storage config"
+          },
+          {
+            "type": 1,
+            "content": {
+              "json": "**Storage Account Distribution Analysis**\n\nThis chart shows the distribution of storage accounts by SKU type and replication settings. It helps identify optimization opportunities and ensure appropriate redundancy levels are configured across your environment."
+            },
+            "name": "text - storage config explanation"
           },
           {
             "type": 3,
@@ -822,7 +1043,7 @@
     {
       "type": 1,
       "content": {
-        "json": "---\n\n## 🔗 Quick Links & Actions\n\n**Azure Portal Quick Access:**\n- [Azure Policy Compliance](https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade/~/Compliance)\n- [Security Center Recommendations](https://portal.azure.com/#view/Microsoft_Azure_Security/SecurityMenuBlade/~/0)\n- [Resource Graph Explorer](https://portal.azure.com/#view/HubsExtension/ArgQueryBlade)\n- [Cost Management](https://portal.azure.com/#view/Microsoft_Azure_CostManagement/Menu/~/overview)\n\n**Dashboard Actions:**\n- 📊 **Export Data:** Use the export options in each chart for further analysis\n- 🔄 **Refresh Data:** Dashboard auto-refreshes every 5 minutes, or click refresh manually\n- ⚙️ **Customize:** Modify parameters above to filter data for specific scopes\n- 📋 **Share:** Use the share button to distribute dashboard links to stakeholders\n\n*This dashboard provides real-time insights into your Azure environment's compliance posture. For detailed remediation guidance, refer to the specific policy recommendations and security center findings.*"
+        "json": "---\n\n## 🔗 Quick Links & Actions\n\n**Azure Portal Quick Access:**\n- [Azure Policy Compliance](https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade/~/Compliance)\n- [Microsoft Defender for Cloud](https://portal.azure.com/#view/Microsoft_Azure_Security/SecurityMenuBlade/~/0)\n- [Resource Graph Explorer](https://portal.azure.com/#view/HubsExtension/ArgQueryBlade)\n- [Cost Management](https://portal.azure.com/#view/Microsoft_Azure_CostManagement/Menu/~/overview)\n\n**Dashboard Actions:**\n- 📊 **Export Data:** Use the export options in each chart for further analysis\n- 🔄 **Refresh Data:** Dashboard auto-refreshes every 5 minutes, or click refresh manually\n- ⚙️ **Customize:** Modify parameters above to filter data for specific scopes\n- 📋 **Share:** Use the share button to distribute dashboard links to stakeholders\n\n*This dashboard provides real-time insights into your Azure environment's compliance posture. For detailed remediation guidance, refer to the specific policy recommendations and Microsoft Defender for Cloud findings.*"
       },
       "name": "text - footer"
     }
