@@ -52,52 +52,56 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    - **Description:** `CIS: Enforce mandatory tags on all resources for compliance tracking and audit purposes`
    - **Category:** Create new category: **"Compliance"**
 
-3. **Define Policy Rule and Parameters**
+3. **Define Policy Using Advanced Editor**
+   - Click the **Advanced Editor** button (</> icon) at the top of the policy definition page
+   - **Clear all existing content** in the editor
+   - **Paste this complete JSON:**
 
-   **A. In the Policy rule section**, paste this JSON:
    ```json
    {
-     "if": {
-       "allOf": [
-         {
-           "field": "type",
-           "notEquals": "Microsoft.Resources/subscriptions/resourceGroups"
+     "displayName": "CIS-Enforce-Tag-on-Resources",
+     "description": "CIS: Enforce mandatory tags on all resources for compliance tracking and audit purposes",
+     "policyType": "Custom",
+     "mode": "All",
+     "parameters": {
+       "effect": {
+         "type": "String",
+         "metadata": {
+           "displayName": "Effect",
+           "description": "The effect determines what happens when the policy rule is evaluated to match"
          },
-         {
-           "anyOf": [
-             {
-               "field": "tags['Environment']",
-               "exists": "false"
-             },
-             {
-               "field": "tags['Environment']",
-               "equals": ""
-             }
-           ]
-         }
-       ]
+         "allowedValues": [
+           "audit",
+           "deny",
+           "disabled"
+         ],
+         "defaultValue": "audit"
+       }
      },
-     "then": {
-       "effect": "[parameters('effect')]"
-     }
-   }
-   ```
-
-   **B. In the Parameters section**, paste this JSON:
-   ```json
-   {
-     "effect": {
-       "type": "String",
-       "metadata": {
-         "displayName": "Effect",
-         "description": "The effect determines what happens when the policy rule is evaluated to match"
+     "policyRule": {
+       "if": {
+         "allOf": [
+           {
+             "field": "type",
+             "notEquals": "Microsoft.Resources/subscriptions/resourceGroups"
+           },
+           {
+             "anyOf": [
+               {
+                 "field": "tags['Environment']",
+                 "exists": "false"
+               },
+               {
+                 "field": "tags['Environment']",
+                 "equals": ""
+               }
+             ]
+           }
+         ]
        },
-       "allowedValues": [
-         "audit",
-         "deny",
-         "disabled"
-       ],
-       "defaultValue": "audit"
+       "then": {
+         "effect": "[parameters('effect')]"
+       }
      }
    }
    ```
