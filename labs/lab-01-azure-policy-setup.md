@@ -149,13 +149,6 @@ We'll create a CIS-aligned policy that requires specific tags on all resources f
    - **Assignment name:** `CIS Baseline Compliance Assessment`
    - **Description:** `CIS Azure Foundations Benchmark compliance assessment and enforcement`
    - **Policy enforcement:** **Enabled**
-   - Click **Next**
-
-3. **Configure Parameters**
-   - For your custom tag policy, set **Effect:** to **"audit"** (for initial assessment)
-   - Leave other policies with default settings
-
-4. **Complete the Assignment**
    - Click **Review + create**
    - Click **Create**
 
