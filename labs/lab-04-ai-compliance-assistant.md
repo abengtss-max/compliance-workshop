@@ -2,7 +2,7 @@
 
 ## 📋 Overview
 
-This hands-on lab demonstrates how AI can transform compliance management by deploying an intelligent Azure AI Foundry agent with GPT-4o. You'll create a RAG (Retrieval Augmented Generation) system using real compliance data and interact with persona-specific prompts to understand AI's value for compliance work.
+This hands-on lab demonstrates how AI can transform compliance management by deploying an intelligent Azure AI Foundry agent with GPT-4o. You'll create a RAG (Retrieval Augmented Generation) system using real compliance data and interact with persona-specific prompts to understand AI's value for compliance work. Meet Stanisław (Stan-is-waf) - "One who achieves glory" - your AI compliance assistant specialized in Azure Policy automation and governance excellence.
 
 **Duration:** 60 minutes  
 **Target Personas:** 🏛️ Compliance Officer + 🔒 Security Officer + ⚙️ Cloud Engineer  
@@ -51,6 +51,9 @@ By completing this lab, you will:
 
 Download this file to your desktop before starting the lab:
 - **[Contoso Azure Compliance and Security Report.pdf](https://github.com/abengtss-max/compliance-workshop/raw/main/assets/Contoso%20Azure%20Compliance%20and%20Security%20Report.pdf)** - Sample compliance assessment report for RAG functionality
+- To get the most value from this lab, take a few minutes to review your actual Azure environment's security posture, note this fictional so no real data is being used here.
+- We will later use this data as knowledge for our AI Agent.
+- 
 
 ---
 
