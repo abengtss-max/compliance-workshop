@@ -273,6 +273,65 @@ Now you'll use specialized prompts designed for different organizational roles t
    Based on the Contoso security configuration gaps, provide Infrastructure as Code examples (ARM template or Bicep snippets) to implement: network security groups baseline, storage account security settings, and Key Vault access policies. Include validation commands and rollback procedures.
    ```
 
+4. **VM Configuration & Compliance Policies**
+   
+   Copy these prompts for VM governance automation:
+   ```
+   Create an Azure Policy (JSON + Terraform) that enforces managed disks on all virtual machines with deny effect and exemption parameters
+   ```
+   ```
+   Generate Azure Policy as code using Terraform to require boot diagnostics on all VMs with storage account parameter and compliance reporting
+   ```
+   ```
+   Build complete Terraform module for Azure Policy that restricts VM SKUs to approved list [Standard_B*, Standard_D*, Standard_E*] with assignment scope and exclusions
+   ```
+
+5. **Storage Security & Governance Policies**
+   
+   Use these prompts for storage automation:
+   ```
+   Create Azure Policy with Terraform that enforces HTTPS-only traffic on storage accounts with deny effect and audit non-compliant resources
+   ```
+   ```
+   Generate Terraform-based Azure Policy initiative containing: minimum TLS 1.2, disable public blob access, require encryption at rest, with assignment and compliance dashboard
+   ```
+   ```
+   Build Azure Policy as code using Terraform that audits storage accounts without private endpoints and creates automated remediation tasks
+   ```
+
+6. **Network Security Automation**
+   
+   Deploy network controls with these prompts:
+   ```
+   Create Terraform Azure Policy that denies NSG rules allowing inbound traffic from 0.0.0.0/0 on high-risk ports [22,3389,1433,5432]
+   ```
+   ```
+   Generate Azure Policy using Terraform that requires Network Security Groups on all subnets with exemption list parameter and audit effect
+   ```
+   ```
+   Build comprehensive Terraform module for Azure Policy initiative covering: NSG flow logs, Network Watcher deployment, DDoS protection standard
+   ```
+
+7. **Resource Governance & Tagging Policies**
+   
+   Implement governance automation with these prompts:
+   ```
+   Create Azure Policy with Terraform that requires mandatory tags [Environment, CostCenter, Owner] and appends default values using modify effect
+   ```
+   ```
+   Generate Terraform-based Azure Policy that enforces naming conventions: resources must match pattern '[service]-[environment]-[workload]-[###]' with regex validation
+   ```
+   ```
+   Build complete Terraform solution for Azure Policy initiative including: allowed regions [swedencentral, westeurope], required tags, approved VM sizes, and Policy Insights dashboard
+   ```
+
+**💡 Pro Tips:**
+- All prompts generate both JSON policy definitions and Terraform deployment code
+- Test policies in development subscriptions before production deployment  
+- Use compliance dashboard data to prioritize which policies to implement first
+- Combine multiple policies into initiatives for comprehensive governance
+- Always include exemption parameters for emergency situations
+
 ---
 
 ## Step 6: Advanced AI Compliance Scenarios
